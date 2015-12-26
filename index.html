@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset='utf-8'>
+<head>
+<title>NMEA Relay</title>
+<script>
+function init() {
+  var vals = document.getElementById("vals");
+  var data = vals.contentDocument.documentElement.textContent;
+  data = JSON.parse(data);
+  document.data.listen.value = data.listen;
+  document.data.ssid.value = data.ssid;
+  document.data.pass.value = data.pass;
+  document.data.host.value = data.host;
+  document.data.port.value = data.port;
+  if('ap' in data && data.ap=='y') document.data.ap.checked = true;
+  if('udp' in data && data.ap=='y') document.data.udp.checked = true;
+  if('tcp' in data && data.ap=='y') document.data.tcp.checked = true;
+}
+</script> 
+</head>
+<body onload="init();">
+<iframe id="vals" style="display:none" src="relay.json">
+</iframe>
+<h1>NMEA Relay</h1>
+<form name="data" method="POST" action="update">
+Start as Access Point:<input type="checkbox" name="ap" value="y"/>
+<p>SSID:<input type="text" name="ssid"/>
+<p>Password:<input type="text" name="pass"/>
+<p>TCP Server Listening port:<input type="text" name="listen" value="10111"/>
+<p>Broadcast sentences on UDP:<input type="checkbox" name="udp" value="y"/>
+<p>Connect to a server:<input type="checkbox" name="tcp" value="y"/>
+<p>Host:<input type="text" name="host"/>
+<p>Port:<input type="text" name="port" value="10111"/>
+<p><input type="submit" name="submit" value="Submit"/>
+</form>
+</body>
+</html>
